@@ -23,10 +23,20 @@ describe PoptartsController do
       expect(response).to have_http_status(:ok)
       poptart_response = JSON.parse(response.body)
 
-     # poptart = poptart_response.first
+      expect(poptart_response['flavor']).to eq('smores')
+      expect(poptart_response['sprinkles']).to eq('none')
+    end
+  end
+  context '#create' do
+    it 'creates a poptart' do
+      post :create, format: :json, poptart: { flavor: 'boston creme', sprinkles: 'black and white' }
 
-     # expect(poptart['flavor']).to eq('smores')
-     # expect(poptart['sprinkles']).to eq('none')
+      expect(response).to have_http_status :created
+
+      poptart_response = JSON.parse(response.body)
+
+      expect(poptart_response['flavor']).to eq('boston creme')
+      expect(poptart_response['sprinkles']).to eq('black and white')
     end
   end
 end
