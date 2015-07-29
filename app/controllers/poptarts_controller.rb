@@ -21,7 +21,7 @@ class PoptartsController < ApplicationController
 
   def destroy
     poptart = Poptart.find(params[:id])
-    respond_with poptart.delete
+    respond_with poptart.destroy
   end
 
   private
