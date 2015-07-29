@@ -52,4 +52,15 @@ describe PoptartsController do
       expect(poptart.sprinkles).to eq('nutella')
     end
   end
+
+  context '#destroy' do
+    it 'destroys poptarts' do
+      poptart = Poptart.create(flavor: 'plain', sprinkles: 'none')
+      expect {
+        delete :destroy, id: poptart.id, format: :json
+      }.to change { Poptart.count }.from(1).to(0)
+
+      expect(response).to have_http_status(:no_content)
+    end
+  end
 end
